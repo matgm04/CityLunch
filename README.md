@@ -217,7 +217,4 @@ En **production** ou sur un serveur accessible depuis Internet :
 
 ## Dépôt Git
 
-À renseigner après le push initial :
-```
-https://github.com/votre-user/citylunch
-```
+https://github.com/matgm04/CityLunch.git
