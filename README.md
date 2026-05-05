@@ -99,12 +99,14 @@ php bin/console doctrine:fixtures:load
 ```
 
 Les fixtures créent :
-- 3 clients : `alice@citylunch.fr`, `bob@citylunch.fr`, `admin@citylunch.fr` (mot de passe : `password123`)
+- 3 clients : `alice@citylunch.fr`, `bob@citylunch.fr`, `admin@citylunch.fr` (mot de passe : `password123`, `admin1234`)
 - 3 plats + 2 desserts du jour
 
 ---
 
-## 4. MongoDB – sessions
+## 4. MongoDB – sessions - 
+
+Note : En raison d'un conflit de version entre la DLL PECL MongoDB et la version PHP locale (WAMP), l'extension n'a pas pu être activée. Les sessions utilisent donc le handler PHP natif (fichiers). Le MongoDbSessionHandler reste présent dans le code (src/Session/) mais n'est pas activé ni testé.
 
 MongoDB doit tourner localement sur le port `27017`.
 Téléchargez et installez **[MongoDB Community Server](https://www.mongodb.com/try/download/community)**.
