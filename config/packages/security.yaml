@@ -1,0 +1,41 @@
+# config/packages/security.yaml
+security:
+    password_hashers:
+        App\Entity\Customer:
+            algorithm: auto
+
+    providers:
+        app_customer_provider:
+            entity:
+                class: App\Entity\Customer
+                property: email
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            lazy: true
+            provider: app_customer_provider
+            form_login:
+                login_path: app_login
+                check_path: app_login
+                default_target_path: app_product_index
+                enable_csrf: true
+            logout:
+                path: app_logout
+                target: app_product_index
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800 # 7 jours
+
+    access_control:
+        - { path: ^/login, roles: PUBLIC_ACCESS }
+        - { path: ^/register, roles: PUBLIC_ACCESS }
+        - { path: ^/products, roles: PUBLIC_ACCESS }
+        - { path: ^/cart, roles: ROLE_USER }
+        - { path: ^/, roles: PUBLIC_ACCESS }
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER

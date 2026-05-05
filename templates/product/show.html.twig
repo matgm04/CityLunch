@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.name }} – CityLunch{% endblock %}
+
+{% block body %}
+<div class="row justify-content-center">
+    <div class="col-md-7 col-lg-6">
+        <a href="{{ path('app_product_index') }}" class="btn btn-link ps-0 mb-3">
+            <i class="bi bi-arrow-left"></i> Retour au menu
+        </a>
+        <div class="card shadow border-0">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="badge bg-secondary">{{ product.typeLabel }}</span>
+                </div>
+                <h1 class="h3 fw-bold">{{ product.name }}</h1>
+                {% if product.description %}
+                    <p class="text-muted">{{ product.description }}</p>
+                {% endif %}
+                <hr>
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="fs-3 fw-bold" style="color:var(--cl-orange)">
+                        {{ product.price|number_format(2, ',', ' ') }} €
+                    </span>
+                    {% if app.user %}
+                        <form action="{{ path('app_cart_add', {id: product.id}) }}" method="post">
+                            <input type="hidden" name="_token" value="{{ csrf_token('cart_add_' ~ product.id) }}">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-cart-plus"></i> Ajouter au panier
+                            </button>
+                        </form>
+                    {% else %}
+                        <a href="{{ path('app_login') }}" class="btn btn-outline-primary">
+                            <i class="bi bi-lock"></i> Connectez-vous pour commander
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
